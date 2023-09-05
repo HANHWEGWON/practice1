@@ -28,6 +28,7 @@ int main() {
 	randmark = "¼­¸é";
 
 	seoul::print();
-	print();
+	::print();
+
 
 }
