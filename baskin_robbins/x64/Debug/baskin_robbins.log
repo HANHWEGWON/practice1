@@ -1,0 +1,3 @@
+﻿  baskin_robbins.cpp
+C:\Users\0\codingon\baskin_robbins\baskin_robbins.cpp(11,15): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  baskin_robbins.vcxproj -> C:\Users\0\codingon\baskin_robbins\x64\Debug\baskin_robbins.exe
