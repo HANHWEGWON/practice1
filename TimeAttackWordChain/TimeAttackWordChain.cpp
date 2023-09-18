@@ -51,7 +51,7 @@ int main() {
     
     // 메인 스레드에서 초를 세기
     while (isRunning) {
-        std::cout << "\n경과 시간 (초): " << seconds << std::endl;
+        //std::cout << "\n경과 시간 (초): " << seconds << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(1));
         seconds++;
         
