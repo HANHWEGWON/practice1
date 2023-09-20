@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Making_game.cpp">
+    <ClCompile Include="fight.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
@@ -33,6 +33,9 @@
     <ClCompile Include="Hand.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Draw.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -48,6 +51,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Hand.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
