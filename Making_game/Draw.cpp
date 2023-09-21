@@ -33,7 +33,7 @@ void shuffleArray(int size)
 	}
 }
 
-void dfs(int r, int c, int(*map)[51], int(*check)[51]) {
+void dfs(int r, int c, int(*map)[51], int(*check)[51], int row_size, int col_size) {
 
 
 	shuffleArray(4);
@@ -42,7 +42,7 @@ void dfs(int r, int c, int(*map)[51], int(*check)[51]) {
 		int nr = r + dy[i];
 		int nc = c + dx[i];
 		
-		if (nr > 29 || nr < 1 || nc>49 || nc < 1) continue;
+		if (nr > row_size-2 || nr < 1 || nc>col_size-2 || nc < 1) continue;
 		if (check[nr][nc] == 1) continue;
 		check[nr][nc] = 1;
 		if (map[nr][nc] == 1) {
@@ -53,22 +53,22 @@ void dfs(int r, int c, int(*map)[51], int(*check)[51]) {
 				map[r][(c + nc) / 2] = 0;
 			map[nr][nc] = 0;
 		}
-		dfs(nr, nc, map, check);
+		dfs(nr, nc, map, check, row_size, col_size);
 	}
 }
 
-void Draw::DrawMap(int (*map)[51], int (*check)[51]) {
+void Draw::DrawMap(int (*map)[51], int (*check)[51], int row_size, int col_size) {
 	
-	for (int i = 0; i < 31; i++) {
-		for (int j = 0; j < 51; j++) {
+	for (int i = 0; i < row_size; i++) {
+		for (int j = 0; j < col_size; j++) {
 			map[i][j] = 1;
 			check[i][j] = 0;
 		}
 	}
-	int x = rand() % 50 + 1;
-	int y = rand() % 30 + 1;
+	int x = rand() % col_size;
+	int y = rand() % row_size;
 	if (x % 2 == 0) x--;
 	if (y % 2 == 0) y--;
-	dfs(y, x, map, check);
+	dfs(y, x, map, check, row_size, col_size);
 
 }

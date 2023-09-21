@@ -12,6 +12,6 @@ class Draw
 {
 public:
 	void DrawMainScreen();
-	void DrawMap(int(*map)[51], int (*check)[51]);
+	void DrawMap(int(*map)[51], int (*check)[51], int row_size, int col_size);
 };
 

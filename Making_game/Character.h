@@ -11,6 +11,8 @@ public:
 	Character(int hp, int level);
 	int getHp() { return this->hp; }
 	int getLevel() { return this->level; }
+	void setHp(int hp) { this->hp = hp; }
+	void setLevel(int level) { this->level = level; }
 	vector<Weapon*> getWeapon() { return this->w; }
 	void changeWeapon(Weapon* wp, int num);
 	void setWeapon(Weapon* wp);
