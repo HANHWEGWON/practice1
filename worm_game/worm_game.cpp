@@ -100,7 +100,7 @@ int input(int way) {
 	// 키보드가 눌리면
 	if (_kbhit()) {
 		int key = _getch();
-		if (key == 0xE0 || key == 0) {
+		if (key == 0xE0 || key == 0) { //224와 0을 반환하기에 다시 한번 key를 입력받는다.
 			key = _getch();
 
 			switch (key) {
