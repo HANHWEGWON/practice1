@@ -25,7 +25,7 @@ int main()
         cout << "1~9 사이의 숫자 3개를 입력 하시오 (이외의 숫자: 종료)\n";
         int memo[10] = { 0 };
         vector<int> p;
-
+        
         while (true) {
             cin >> n;
             if (memo[n] == 1) {

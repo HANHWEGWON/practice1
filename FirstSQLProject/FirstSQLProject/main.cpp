@@ -15,7 +15,7 @@ int main()
     sql::Connection* con;
     sql::Statement* stmt;
     sql::PreparedStatement* pstmt;
-
+    sql::ResultSet* rs;
     try {
         driver = sql::mysql::get_mysql_driver_instance();
         con = driver->connect(server, username, password);
@@ -60,9 +60,15 @@ int main()
     pstmt->execute();
     cout << "One row inserted." << endl;
 
-   
-
+    pstmt = con->prepareStatement("select * from inventory");
+    rs = pstmt->executeQuery();
+    while (rs->next()) {
+        cout << rs->getString(1) << ' ' << rs->getString(2) << ' ' << rs->getString(3) << '\n';
+    }
     // MySQL Connector/C++ Á¤¸®
+
+    
+
     delete pstmt;
     delete con;
     

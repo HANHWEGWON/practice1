@@ -5,13 +5,13 @@
 #include "Hand.h"
 #include<windows.h>
 #include "Draw.h"
-#include <mmsystem.h>
 #include<conio.h>
 #include<ctime>
 #include<cstdlib>
 #include<string>
 #include "scratch.h"
 #pragma comment(lib,"winmm.lib")
+#include <mmsystem.h>
 #define UP 72
 #define DOWN 80
 #define LEFT 75
@@ -19,9 +19,15 @@
 
 using namespace std;
 
+int monster_flag = 0, monster_hp_plus = 30, monster_level_plus = 5;
+int map[31][51], check[31][51];
 int attack_plus = 0;
 int count_plus = 0;
 int end_point = 0;
+Draw* dr = new Draw();
+
+void start_game(Character&);
+
 
 void gotoxy(int y, int x)
 {
@@ -70,7 +76,6 @@ void find_monster(Character &player) {
     system("cls");
 }
 
-int monster_flag=0, monster_hp_plus=30, monster_level_plus=5;
 
 void monster_event(Character &player) {
     int choice;
@@ -143,7 +148,7 @@ void monster_event(Character &player) {
 
     }
 }
-int map[31][51], check[31][51];
+
 
 void printMap(int row_size, int col_size, Character& player) {
     
@@ -200,35 +205,12 @@ void insert_map_event(int monster_cnt, int row_size, int col_size) {
     }
 }
 
-int main()
-{
-    PlaySound(L"file_example_WAV_1MG.wav", 0, SND_FILENAME | SND_ASYNC | SND_LOOP);
-    //_getch();
-    system("mode con:cols=110 lines=35");
-    srand(time(NULL));
-    Draw* dr = new Draw();
-    dr->DrawMainScreen();
-    string input; cin >> input;
-    system("cls");
-    
-    dr->DrawStageLevel_01();
-    Sleep(2000);
-    system("cls");
-    Character player(20, 1);
-    int row_size = 11, col_size = 31, monster_size=3;
-    
-    dr->DrawMap(map, check, row_size, col_size); //맵 크기 조절하는구간
+void start_game(Character& player) {
     char ch;
-    
-    insert_map_event(monster_size, row_size, col_size);
-    
-    printMap(row_size, col_size, player);
-    
-
-    gotoxy(r, c);
+    int row_size = 11, col_size = 31, monster_size = 3;
 
     while (true) {
-        
+
         if (_kbhit()) {
             ch = _getch();
             if (ch == -32) {
@@ -239,15 +221,15 @@ int main()
                     c--;
                     break;
                 case RIGHT:
-                    if (map[r][c+1] == 1) break;
+                    if (map[r][c + 1] == 1) break;
                     c++;
                     break;
                 case UP:
-                    if (map[r-1][c] == 1) break;
+                    if (map[r - 1][c] == 1) break;
                     r--;
                     break;
                 case DOWN:
-                    if (map[r+1][c] == 1) break;
+                    if (map[r + 1][c] == 1) break;
                     r++;
                     break;
                 }
@@ -255,8 +237,8 @@ int main()
                 if (map[r][c] == 3) { //몬스터 발견
                     system("cls");
                     monster_event(player);
-                    if (end_point == 1) return 0;
-                    
+                    if (end_point == 1) return;
+
                     system("cls");
                     map[r][c] = 0;
                     PlaySound(L"file_example_WAV_1MG.wav", 0, SND_FILENAME | SND_ASYNC | SND_LOOP);
@@ -264,13 +246,13 @@ int main()
                 }
                 else if (map[r][c] == 4) { //다음 라운드
                     system("cls");
-                    monster_flag+=1;
+                    monster_flag += 1;
                     if (row_size == 31 && col_size == 51) {
-                        
+
                         dr->DrawFinish();
                         break;
                     }
-                    row_size += 10; col_size += 10, monster_size+=3; //맵크기 변환, 몬스터 갯수 증가
+                    row_size += 10; col_size += 10, monster_size += 3; //맵크기 변환, 몬스터 갯수 증가
                     if (monster_flag == 1) { dr->DrawStageLevel_02(); }
                     else if (monster_flag == 2) { dr->DrawStageLevel_03(); }
 
@@ -278,14 +260,43 @@ int main()
                     insert_map_event(monster_size, row_size, col_size);
                     printMap(row_size, col_size, player);
                 }
-                
-                 cout << "  ";
-                 gotoxy(r, c);
-                 cout << "★";
-                 gotoxy(r, c);
+
+                cout << "  ";
+                gotoxy(r, c);
+                cout << "★";
+                gotoxy(r, c);
             }
         }
     }
+}
+
+int main()
+{
+    PlaySound(L"file_example_WAV_1MG.wav", 0, SND_FILENAME | SND_ASYNC | SND_LOOP);
+    //_getch();
+    system("mode con:cols=110 lines=35");
+    srand(time(NULL));
+    dr->DrawMainScreen();
+    string input; cin >> input;
+    system("cls");
+    
+    dr->DrawStageLevel_01();
+    Sleep(2000);
+    system("cls");
+    Character player(20, 1);
+    int row_size = 11, col_size = 31, monster_size = 3;
+    
+    dr->DrawMap(map, check, row_size, col_size); //맵 크기 조절하는구간
+    
+    
+    insert_map_event(monster_size, row_size, col_size);
+    
+    printMap(row_size, col_size, player);
+    
+
+    gotoxy(r, c);
+
+    start_game(player);
 
 
 }
